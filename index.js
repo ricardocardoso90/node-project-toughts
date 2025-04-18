@@ -8,11 +8,42 @@ const FileStore = require('session-file-store')(session);
 const app = express();
 const conn = require('./db/conn');
 
+const Tought = require("./models/Tought");
+const User = require("./models/User");
+
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
+
+app.use(
+  session({
+    name: "session",
+    secret: "nosso_secret",
+    resave: false,
+    saveUninitialized: false,
+    store: new FileStore({
+      logFn: () => { },
+      path: require('path').join(require('os').tmpdir(), 'sessions'),
+    }),
+    cookie: {
+      secure: false,
+      maxAge: 360000,
+      expires: new Date(Date.now() + 360000),
+      httpOnly: true,
+    }
+  })
+);
+
+app.use(flash());
+
+app.use((req, res, next) => {
+  if (req.session.userid) {
+    res.locals.session = req.session;
+  };
+  next();
+});
 
 app.set("view engine", "handlebars");
 app.engine("handlebars", exphbs.engine());
@@ -26,5 +57,6 @@ app.get("/", (req, res) => {
 
 conn
   .sync()
+  // .sync({ force: true })
   .then(() => app.listen(3000))
   .catch((error) => console.log(error));
