@@ -11,6 +11,9 @@ const conn = require('./db/conn');
 const Tought = require("./models/Tought");
 const User = require("./models/User");
 
+const toughtsRoutes = require("./routes/toughtsRoutes");
+const ToughtController = require('./controllers/ToughtController');
+
 app.use(
   express.urlencoded({
     extended: true,
@@ -51,9 +54,8 @@ app.engine("handlebars", exphbs.engine());
 app.use(express.json());
 app.use(express.static("./public"));
 
-app.get("/", (req, res) => {
-  res.render("home");
-});
+app.use("/toughts", toughtsRoutes);
+app.get("/", ToughtController.showToughts);
 
 conn
   .sync()
