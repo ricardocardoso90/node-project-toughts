@@ -5,6 +5,9 @@
 - [MySQL]()
 - [Express]()
 - [Sequelize]()
+- [Bcrypt]()
+- [Flash]()
+- [Session]()
 - [Handlebars]()
 
 ## Instalação:
