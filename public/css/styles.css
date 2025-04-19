@@ -43,6 +43,17 @@
 .container {
   padding: 2em;
   min-height: 60vh;
+
+  .message {
+    padding: 1em;
+    max-width: 60%;
+    color: #004085;
+    text-align: center;
+    border-radius: 5px;
+    margin: 0 auto 2em;
+    background-color: #CCE5FF;
+    border: 1px solid #B8DAFF;
+  }
 }
 
 .auth-container {
