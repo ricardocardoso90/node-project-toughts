@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
-const { where } = require('sequelize');
 
 module.exports = class AuthController {
   static login(req, res) {
