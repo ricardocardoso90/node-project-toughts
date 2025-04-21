@@ -1,9 +1,35 @@
-const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const { where } = require('sequelize');
 
 module.exports = class AuthController {
   static login(req, res) {
     res.render('auth/login');
+  };
+
+  static async loginPost(req, res) {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email: email } });
+
+    if (!user) {
+      req.flash('message', 'Email não cadastrado, tente novamente!');
+      res.render('auth/login');
+      return
+    };
+
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+    if (!passwordMatch) {
+      req.flash('message', 'Senha inválida, tente novamente!');
+      res.render('auth/login');
+      return
+    };
+
+    req.session.userid = user.id;
+    req.flash("message", "Usuário logado com sucesso!! Parabéns.");
+
+    req.session.save(() => {
+      res.redirect("/");
+    });
   };
 
   static register(req, res) {
@@ -54,9 +80,5 @@ module.exports = class AuthController {
   static logout(req, res) {
     req.session.destroy();
     res.redirect('/login');
-  };
-
-  static async loginPost(req, res) {
-
   };
 };
