@@ -44,7 +44,7 @@ app.use(
 app.use(flash());
 
 app.use((req, res, next) => {
-  if (req.session.userid) {
+  if (req.session.userId) {
     res.locals.session = req.session;
   };
   next();
@@ -54,7 +54,8 @@ app.set("view engine", "handlebars");
 app.engine("handlebars", exphbs.engine());
 
 app.use(express.json());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static("./public/"));
+// app.use(express.static(__dirname + '/public'));
 
 app.use("/", authRoutes);
 app.use("/toughts", toughtsRoutes);

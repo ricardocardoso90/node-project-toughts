@@ -56,7 +56,8 @@
   }
 }
 
-.auth-container {
+.auth-container,
+.tought-container {
   max-width: 450px;
   margin: 0 auto;
 
@@ -113,6 +114,32 @@
   input[type="submit"]:hover {
     color: #FFF;
     background-color: #F6982D;
+  }
+}
+
+.tought-container {
+  margin: 0;
+
+  h1 {
+    color: #FFF;
+    padding: 0.3em;
+    margin: 1em 0;
+    border-left: 4px solid #F6982D;
+  }
+
+  a {
+    color: #F6982D;
+    text-decoration: none;
+    transition: .5s;
+  }
+
+  a:hover {
+    color: #FFF;
+    transition: all ease .5s;
+  }
+
+  form {
+    margin-top: 1.5em;
   }
 }
 

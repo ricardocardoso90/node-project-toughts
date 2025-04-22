@@ -6,6 +6,27 @@ module.exports = class ToughtController {
     res.render("toughts/home");
   };
 
+  static createToughts(req, res) {
+    res.render("toughts/create");
+  };
+
+  static async createToughtsPost(req, res) {
+    const tought = {
+      title: req.body.title,
+      UserId: req.session.userId,
+    };
+
+    try {
+      await Tought.create(tought);
+      req.flash('message', "Pensamento criado com sucesso!");
+      req.session.save(() => {
+        res.redirect('/toughts/dashboard');
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   static async dashboard(req, res) {
     res.render("toughts/dashboard");
   };
