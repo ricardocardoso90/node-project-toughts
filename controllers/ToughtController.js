@@ -13,7 +13,7 @@ module.exports = class ToughtController {
   static async createToughtsPost(req, res) {
     const tought = {
       title: req.body.title,
-      UserId: req.session.userId,
+      UserId: req.session.userid,
     };
 
     try {
