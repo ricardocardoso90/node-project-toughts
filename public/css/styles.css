@@ -160,7 +160,7 @@
   }
 }
 
-.container {
+.dashboard {
   .title-container {
     margin-bottom: 1.5em;
 
@@ -203,6 +203,10 @@
       border-color: #FFF;
       margin: 0 .5em;
     }
+  }
+
+  a {
+    color: #F6982D;
   }
 }
 
