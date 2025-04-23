@@ -14,6 +14,4 @@ router.post('/add', checkAuth, ToughtController.createToughtsPost);
 router.get('/dashboard', checkAuth, ToughtController.dashboard);
 router.post('/remove', checkAuth, ToughtController.removeTought);
 
-
-
 module.exports = router;

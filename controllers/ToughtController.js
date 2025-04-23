@@ -5,7 +5,10 @@ module.exports = class ToughtController {
 
   // SHOWTOUGHTS
   static async showToughts(req, res) {
-    res.render("toughts/home");
+    const toughtsData = await Tought.findAll({ include: User });
+    const toughts = toughtsData.map(result => result.get({ plain: true }));
+
+    res.render("toughts/home", { toughts });
   };
 
   // EDITTOUGHT
@@ -25,7 +28,7 @@ module.exports = class ToughtController {
       await Tought.update({ title }, { where: { id: id } });
       req.flash('message', "Pensamento atualizado com sucesso!");
       req.session.save(() => res.redirect('/toughts/dashboard'));
-    
+
     } catch (error) {
       console.log(error);
     };
@@ -47,7 +50,7 @@ module.exports = class ToughtController {
       await Tought.create(tought);
       req.flash('message', "Pensamento criado com sucesso!");
       req.session.save(() => res.redirect('/toughts/dashboard'));
-    
+
     } catch (error) {
       console.log(error);
     };
@@ -81,7 +84,7 @@ module.exports = class ToughtController {
       await Tought.destroy({ where: { id: id }, UserId: UserId });
       req.flash('message', "Pensamento removido com sucesso!");
       req.session.save(() => res.redirect('/toughts/dashboard'));
-    
+
     } catch (error) {
       console.log(error);
     };
