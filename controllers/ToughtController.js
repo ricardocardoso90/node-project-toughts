@@ -2,10 +2,37 @@ const User = require("../models/User");
 const Tought = require("../models/Tought");
 
 module.exports = class ToughtController {
-  
+
   // SHOWTOUGHTS
   static async showToughts(req, res) {
     res.render("toughts/home");
+  };
+
+  // EDITTOUGHT
+  static async editTought(req, res) {
+    const id = req.params.id;
+    const tought = await Tought.findOne({ where: { id: id }, raw: true });
+
+    res.render("toughts/edit", { tought });
+  };
+
+  // EDITTOUGHTPOST
+  static async editToughtPost(req, res) {
+    const id = req.body.id;
+    const tought = {
+      title: req.body.title,
+    };
+
+    try {
+      await Tought.update(tought, { where: { id: id } });
+      req.flash('message', "Pensamento atualizado com sucesso!");
+
+      req.session.save(() => {
+        res.redirect('/toughts/dashboard');
+      });
+    } catch (error) {
+      console.log(error);
+    };
   };
 
   // CREATETOUGHTS
