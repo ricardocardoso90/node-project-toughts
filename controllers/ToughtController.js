@@ -19,17 +19,13 @@ module.exports = class ToughtController {
   // EDITTOUGHTPOST
   static async editToughtPost(req, res) {
     const id = req.body.id;
-    const tought = {
-      title: req.body.title,
-    };
+    const title = req.body.title;
 
     try {
-      await Tought.update(tought, { where: { id: id } });
+      await Tought.update({ title }, { where: { id: id } });
       req.flash('message', "Pensamento atualizado com sucesso!");
-
-      req.session.save(() => {
-        res.redirect('/toughts/dashboard');
-      });
+      req.session.save(() => res.redirect('/toughts/dashboard'));
+    
     } catch (error) {
       console.log(error);
     };
@@ -50,12 +46,11 @@ module.exports = class ToughtController {
     try {
       await Tought.create(tought);
       req.flash('message', "Pensamento criado com sucesso!");
-      req.session.save(() => {
-        res.redirect('/toughts/dashboard');
-      });
+      req.session.save(() => res.redirect('/toughts/dashboard'));
+    
     } catch (error) {
       console.log(error);
-    }
+    };
   };
 
   // DASHBOARD
@@ -85,9 +80,8 @@ module.exports = class ToughtController {
     try {
       await Tought.destroy({ where: { id: id }, UserId: UserId });
       req.flash('message', "Pensamento removido com sucesso!");
-      req.session.save(() => {
-        res.redirect('/toughts/dashboard');
-      });
+      req.session.save(() => res.redirect('/toughts/dashboard'));
+    
     } catch (error) {
       console.log(error);
     };
