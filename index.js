@@ -56,7 +56,6 @@ app.engine("handlebars", exphbs.engine());
 app.use(express.json());
 app.use(express.static("./public/"));
 // app.use(express.static(__dirname + '/public'));
-// app.use(express.static(__dirname + '/public'));
 
 app.use("/", authRoutes);
 app.use("/toughts", toughtsRoutes);
