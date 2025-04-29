@@ -62,7 +62,6 @@ app.use("/toughts", toughtsRoutes);
 
 app.get("/", ToughtController.showToughts);
 
-
 conn
   .sync()
   // .sync({ force: true })
